@@ -7,8 +7,13 @@ from pykafka import KafkaClient
 import datetime
 
 
-with open('app_conf.yml', 'r') as f:
-    app_config = yaml.safe_load(f.read())
+try:
+    with open('/config/app_conf.yml', 'r') as f:
+        app_config = yaml.safe_load(f.read())
+except IOError:
+    with open('app_conf.yml', 'r') as f:
+        app_config = yaml.safe_load(f.read())
+
 
 def booking_details(deliveryDetails):
     headers = {'Content-type': 'application/json'}
